@@ -1,5 +1,7 @@
-discord.py==1.7.3
-requests
+discord.py
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
 websocket-client
 datetime
 discord
