@@ -79,11 +79,10 @@ async def criar_relatorio(ctx):
         await report_channel.send(embed=embed)
         await report_channel.send(f"```{spreadsheet_format}```")
         confirmation_embed = discord.Embed(
-            title="Relatório gerado com sucesso!",
-            description="O relatório foi enviado ao canal de relatório.",
+            title="REGEAR CLOSED!",
+            description="O relatório foi gerado com sucesso.",
             color=discord.Color.green()
         )
-        await ctx.send(embed=confirmation_embed, delete_after=5)
     else:
         error_embed = discord.Embed(
             title="Erro ao gerar relatório",
