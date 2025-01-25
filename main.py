@@ -6,18 +6,14 @@ import os
 
 keep_alive()
 
-# --- Constants ---
-tokenx = os.environ.get('token')
-REPORT_CHANNEL_ID = 1332523572018675805
-MESSAGE_CHANNEL_ID = REPORT_CHANNEL_ID
-TOPIC_CHANNEL_ID = 1311066334360109166
-
 # --- Discord Bot Setup ---
 intents = discord.Intents.default()
 intents.messages = True
 intents.message_content = True
 intents.guilds = True
+intents.members = True  # Permitir acesso a informações completas dos membros
 bot = commands.Bot(command_prefix='/', intents=intents)
+
 
 # --- Helper Functions ---
 def create_embed(report_data):
@@ -65,6 +61,7 @@ async def criar_relatorio(ctx):
     for message in messages[1:-1]:
         timestamp = (message.created_at - datetime.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M:%S')
         nick = message.author.display_name
+        print(f"Relatorio gerado - {timestamp}")  # Log para depuração
         content = message.content.replace("\n", " ") if message.content else "-"
         attachment_links = [att.url for att in message.attachments]
         link = attachment_links[0] if attachment_links else "-"
@@ -117,7 +114,7 @@ async def criar_regear(ctx, *, mensagem=None):
         description="**Copie sua build conforme abaixo, e cole junto com a print do regear!**\n\n__Se você tiver a tag \"Core\" escreva junto com a build__\n\nEx: **Segadeira Core**\n\nHeavy Mace\nMartelo 1H\nCajado Runico\nJurador\nSegadeira\nQuebra Reino\nPlangente\nManoplas Cravadas\nMãos Infernais\nQueda Santa\nPostulento\nCajado Enraizado\nLocus\nCajado Astral\nExecrado",
         color=discord.Color.green()
     )
-    embed.set_footer(text=f"Mensagem criada por {ctx.author.name}")
+    embed.set_footer(text=f"Regear criado por {ctx.author.display_name}")
 
     target_channel = bot.get_channel(TOPIC_CHANNEL_ID)
     if target_channel:
