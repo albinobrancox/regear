@@ -142,7 +142,7 @@ async def criar_regear(ctx, *, mensagem=None):
 async def mensagem(ctx, *, texto):
     await ctx.message.delete()
     await ctx.send(texto)
-
+    
 # --- Run the Bot ---
 if __name__ == '__main__':
     bot.run(tokenx)
