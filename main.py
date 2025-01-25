@@ -83,6 +83,7 @@ async def criar_relatorio(ctx):
             description="O relatório foi gerado com sucesso.",
             color=discord.Color.green()
         )
+        await ctx.send(embed=confirmation_embed)
     else:
         error_embed = discord.Embed(
             title="Erro ao gerar relatório",
