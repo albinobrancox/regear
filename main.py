@@ -6,6 +6,11 @@ import os
 
 keep_alive()
 
+# --- Constants ---
+REPORT_CHANNEL_ID = 1332523572018675805
+MESSAGE_CHANNEL_ID = REPORT_CHANNEL_ID
+TOPIC_CHANNEL_ID = 1311066334360109166
+
 # --- Discord Bot Setup ---
 intents = discord.Intents.default()
 intents.messages = True
@@ -139,7 +144,8 @@ async def criar_regear(ctx, *, mensagem=None):
 async def mensagem(ctx, *, texto):
     await ctx.message.delete()
     await ctx.send(texto)
-    
+
 # --- Run the Bot ---
 if __name__ == '__main__':
-    bot.run(tokenx)
+    token = os.environ.get('token')
+    bot.run(token)
