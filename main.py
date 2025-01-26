@@ -116,7 +116,7 @@ async def criar_regear(ctx, *, mensagem=None):
 
     embed = discord.Embed(
         title=mensagem,
-        description="**Copie sua build conforme abaixo, e cole junto com a print do regear!**\n**Se você morreu mais de uma vez, repita o processo para as demais mortes!**\n\n**Não coloque 2 prints em 1 mensagem.**\n\n__Se você tiver a tag \"Core\" escreva junto com a build__\n\nEx: **Segadeira Core**\n\nGolem\nHeavy Mace\nMartelo 1H\nMaça 1H\nPara-Tempo\nCajado-Runico\nJurador\nCajado-Equilibrio\nSincelo\nSegadeira\nCaça-Espiritos\nQuebra Reino\nPlangente\nManoplas Cravadas\nMãos-Infernais\nQueda-Santa\nPostulento\nCajado Enraizado\nLocus\nEnigmatico\nCajado Astral\nExecrado",
+        description="**Copie sua build conforme abaixo, e cole junto com a print do regear!**\n**Se você morreu mais de uma vez, repita o processo para as demais mortes!**\n\n**Não coloque 2 prints em 1 mensagem.**\n\n__Se você tiver a tag \"Core\" escreva junto com a build__\n\nEx: **Segadeira Core**\n\nGolem\nHeavy Mace\nMartelo 1H\nMaça 1H\nPara-Tempo\nCajado-Runico\nJurador\nCajado-Equilibrio\nSincelo\nPrisma\nSegadeira\nCaça-Espiritos\nQuebra Reino\nPlangente\nManoplas Cravadas\nMãos-Infernais\nQueda-Santa\nPostulento\nRampante\nCorrompido\nCajado Enraizado\nLocus\nEnigmatico\nCajado Astral\nExecrado",
         color=discord.Color.green()
     )
     embed.set_footer(text=f"Regear criado por {ctx.author.display_name}")
