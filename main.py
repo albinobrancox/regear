@@ -179,7 +179,7 @@ async def mensagem(ctx, *, texto):
     
 # --- Servidor HTTP Simples ---
 async def handle(request):
-    return web.Response(text="Bot do Discord está rodando!")
+    return web.Response(text="Alive")
 
 async def start_http_server():
     app = web.Application()
