@@ -23,9 +23,21 @@ def load_builds():
     tree = ET.parse('builds.txt')
     root = tree.getroot()
     builds = {}
+    # Itera sobre todas as tags <build> no arquivo XML
     for build in root.findall('.//build'):
-        nome_build = build.find('NomeBuild').text
-        builds[nome_build] = {tag: build.find(f'.//{tag}').text or '-' for tag in ['Arma', 'Secundaria', 'Elmo', 'Peito', 'Bota', 'Capa']}
+        # Itera sobre todas as tags <NomeBuild> dentro de cada <build>
+        for nome_build in build.findall('NomeBuild'):
+            nome = nome_build.text.strip().lower()  # Normaliza o nome da build
+            # Obtém os itens da build
+            itens = {
+                'Arma': build.find('.//Arma').text or '-',
+                'Secundaria': build.find('.//Secundaria').text or '-',
+                'Elmo': build.find('.//Elmo').text or '-',
+                'Peito': build.find('.//Peito').text or '-',
+                'Bota': build.find('.//Bota').text or '-',
+                'Capa': build.find('.//Capa').text or '-',
+            }
+            builds[nome] = itens
     return builds
 
 def truncate(value, limit=1024):
@@ -45,7 +57,7 @@ def create_embed(report_data):
 
     embed.add_field(name="Data", value=data_values, inline=True)
     embed.add_field(name="Nick", value=nick_values, inline=True)
-    embed.add_field(name="Mensagem", value=mensagem_values, inline=True)
+    embed.add_field(name="Build", value=mensagem_values, inline=True)
     embed.add_field(name="Link", value=link_values, inline=True)
     embed.add_field(name="Emoji", value=emoji_values, inline=True)
     embed.add_field(name="Build Registrada", value=build_registrada_values, inline=True)
@@ -56,20 +68,31 @@ def create_embed(report_data):
     return embed
 
 def format_for_spreadsheet(report_data):
-    headers = "Data;Nick;Mensagem;Link;Emoji;Build_Registrada"
+    headers = "Data;Nick;Build;Link;Emoji;Build_Registrada"
     rows = [f'{row[0]};{row[1]};"{row[2]}";{row[3]};{row[4]};{row[5]}' for row in report_data]
     return f"{headers}\n" + "\n".join(rows)
 
 def format_purchase_report(purchase_data):
-    headers = "Item;Quantidade"
-    rows = [f'{item};{count}' for category in purchase_data.values() for item, count in category.items()]
+    headers = "Categoria;Item;Quantidade"
+    rows = []
+    for category, items in purchase_data.items():
+        for item, count in items.items():
+            rows.append(f'{category};{item};{count}')
     return f"{headers}\n" + "\n".join(rows)
 
-async def send_long_message(channel, content):
-    """Divide e envia uma mensagem longa em múltiplas partes de até 4000 caracteres."""
-    parts = [content[i:i+4000] for i in range(0, len(content), 4000)]
-    for part in parts:
-        await channel.send(f"```{part}```")
+async def send_long_message(channel, content, filename="relatorio.txt"):
+    """
+    Envia o conteúdo como uma mensagem ou como um arquivo .txt se exceder o limite de caracteres.
+    """
+    max_length = 2000  # Limite de caracteres do Discord
+
+    if len(content) <= max_length:
+        # Se o conteúdo for pequeno, envie como mensagem normal
+        await channel.send(f"```{content}```")
+    else:
+        # Se o conteúdo for grande, envie como arquivo .txt
+        file = io.BytesIO(content.encode('utf-8'))
+        await channel.send(file=discord.File(file, filename))
 
 def get_emoji_status(reactions):
     for reaction in reactions:
@@ -102,11 +125,12 @@ async def criar_relatorio(ctx):
 
         timestamp = (message.created_at - datetime.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M:%S')
         nick = message.author.display_name
-        content = message.content.replace("\n", " ")
+        content = message.content.strip().lower()  # Normaliza o conteúdo da mensagem
         attachment_links = [att.url for att in message.attachments]
         link = attachment_links[0] if attachment_links else "-"
         emoji_status = get_emoji_status(message.reactions)
 
+        # Verifica se o conteúdo da mensagem corresponde a uma build no XML
         build_registrada = "Sim" if content in builds else "Não"
         report_data.append([timestamp, nick, content, link, emoji_status, build_registrada])
 
@@ -126,26 +150,19 @@ async def criar_relatorio(ctx):
         await ctx.send(embed=embed, delete_after=5)
         return
 
-    embed = create_embed(report_data)
+    # Gera os relatórios
     spreadsheet_format = format_for_spreadsheet(report_data)
     purchase_report = format_purchase_report(purchase_data)
 
     report_channel = bot.get_channel(REPORT_CHANNEL_ID)
     if report_channel:
-        await report_channel.send(embed=embed)
-        
-        if len(spreadsheet_format) > 4000:
-            file = io.BytesIO(spreadsheet_format.encode('utf-8'))
-            await report_channel.send(file=discord.File(file, "relatorio.csv"))
-        else:
-            await send_long_message(report_channel, spreadsheet_format)
+        # Envia o relatório principal como arquivo .txt se for muito grande
+        await send_long_message(report_channel, spreadsheet_format, filename="relatorio.txt")
 
-        if len(purchase_report) > 4000:
-            file = io.BytesIO(purchase_report.encode('utf-8'))
-            await report_channel.send(file=discord.File(file, "relatorio_compra.csv"))
-        else:
-            await send_long_message(report_channel, purchase_report)
+        # Envia o relatório de compra como arquivo .txt se for muito grande
+        await send_long_message(report_channel, purchase_report, filename="relatorio_compra.txt")
 
+        # Confirmação de sucesso
         confirmation_embed = discord.Embed(
             title="REGEAR CLOSED!",
             description="O relatório foi gerado com sucesso.",
@@ -157,7 +174,7 @@ async def criar_relatorio(ctx):
 async def mensagem(ctx, *, texto):
     await ctx.message.delete()
     await ctx.send(texto)
-
+    
 if __name__ == '__main__':
     token = os.environ.get('token')
     bot.run(token)
