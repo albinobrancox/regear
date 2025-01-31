@@ -4,11 +4,13 @@ import datetime
 import os
 import xml.etree.ElementTree as ET
 import io
+from aiohttp import web  # Adicionado para criar um servidor HTTP
 
 # --- Constants ---
 REPORT_CHANNEL_ID = 1332523572018675805
 MESSAGE_CHANNEL_ID = REPORT_CHANNEL_ID
 TOPIC_CHANNEL_ID = 1311066334360109166
+PORT = int(os.environ.get("PORT", 8080))  # Porta para o servidor HTTP
 
 # --- Discord Bot Setup ---
 intents = discord.Intents.default()
@@ -169,6 +171,24 @@ async def criar_relatorio(ctx):
             color=discord.Color.red()
         )
         await ctx.send(embed=confirmation_embed)
+
+# --- Servidor HTTP Simples ---
+async def handle(request):
+    return web.Response(text="Bot do Discord está rodando!")
+
+async def start_http_server():
+    app = web.Application()
+    app.router.add_get('/', handle)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', PORT)
+    await site.start()
+    print(f"Servidor HTTP rodando na porta {PORT}")
+
+# --- Inicialização do Bot e Servidor HTTP ---
+async def main():
+    await start_http_server()  # Inicia o servidor HTTP
+    await bot.start(os.environ.get('token'))  # Inicia o bot do Discord
 
 @bot.command()
 async def mensagem(ctx, *, texto):
