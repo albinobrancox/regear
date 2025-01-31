@@ -166,4 +166,76 @@
 				<Capa>Martlock</Capa>
 			</h2>
 	</build>
+	
+	<build category="DPS">
+		<NomeBuild>Quebra Reinos</NomeBuild>
+			<h2>
+				<Arma>Quebra Reinos</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Cavaleiro</Elmo>
+				<Peito>Andarilho</Peito>
+				<Bota>Espreitador</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+			
+		<NomeBuild>Caça Espiritos</NomeBuild>
+			<h2>
+				<Arma>Caça Espiritos</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Andarilho</Peito>
+				<Bota>Espreitador</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+			
+		<NomeBuild>Maos Infernais</NomeBuild>
+			<h2>
+				<Arma>Maos Infernais</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Soldado</Elmo>
+				<Peito>Andarilho</Peito>
+				<Bota>Espreitador</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+			
+		<NomeBuild>Segadeira</NomeBuild>
+			<h2>
+				<Arma>Segadeira</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Soldado</Elmo>
+				<Peito>Andarilho</Peito>
+				<Bota>Espreitador</Bota>
+				<Capa>Lymhurst</Capa>
+			</h2>
+			
+		<NomeBuild>Cravadas</NomeBuild>
+			<h2>
+				<Arma>Cravadas</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Cavaleiro</Elmo>
+				<Peito>Tenacidade</Peito>
+				<Bota>Espreitador</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+			
+		<NomeBuild>Ursinas</NomeBuild>
+			<h2>
+				<Arma>Ursinas</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Soldado</Elmo>
+				<Peito>Andarilho</Peito>
+				<Bota>Espreitador</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+			
+		<NomeBuild>Astral</NomeBuild>
+			<h2>
+				<Arma>Astral</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Soldado</Peito>
+				<Bota>Sandalias Reais</Bota>
+				<Capa>Lymhurst</Capa>
+			</h2>
+	</build>
 </buildstore>
