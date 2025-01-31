@@ -10,7 +10,7 @@ from aiohttp import web  # Adicionado para criar um servidor HTTP
 REPORT_CHANNEL_ID = 1332523572018675805
 MESSAGE_CHANNEL_ID = REPORT_CHANNEL_ID
 TOPIC_CHANNEL_ID = 1311066334360109166
-PORT = int(os.environ.get("PORT", 8080))  # Porta para o servidor HTTP
+PORT = int(os.environ.get("PORT", 10000))  # Render usa a porta 10000 por padrão
 
 # --- Discord Bot Setup ---
 intents = discord.Intents.default()
@@ -171,7 +171,7 @@ async def criar_relatorio(ctx):
             color=discord.Color.red()
         )
         await ctx.send(embed=confirmation_embed)
-
+        
 # --- Servidor HTTP Simples ---
 async def handle(request):
     return web.Response(text="Bot do Discord está rodando!")
