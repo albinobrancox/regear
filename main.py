@@ -171,6 +171,51 @@ async def criar_relatorio(ctx):
             color=discord.Color.red()
         )
         await ctx.send(embed=confirmation_embed)
+        
+@bot.command()
+async def criar_regear(ctx, *, mensagem=None):
+    if mensagem is None:
+        error_embed = discord.Embed(
+            title="Erro ao criar regear",
+            description="Você precisa fornecer uma mensagem ao usar este comando.\nExemplo: `/criar_regear REGEAR 28/01 23UTC`",
+            color=discord.Color.red()
+        )
+        await ctx.send(embed=error_embed, delete_after=5)
+        return
+
+    if ctx.channel.id != MESSAGE_CHANNEL_ID:
+        error_embed = discord.Embed(
+            title="Erro ao criar regear",
+            description="Este comando só pode ser usado no canal designado.",
+            color=discord.Color.red()
+        )
+        await ctx.send(embed=error_embed, delete_after=5)
+        return
+
+    embed = discord.Embed(
+        title=mensagem,
+        description="**Copie sua build conforme abaixo, e cole junto com a print do regear!**\n**Se você morreu mais de uma vez, repita o processo para as demais mortes!**\n\n**Não coloque 2 prints em 1 mensagem.**\n\n__Se você tiver a tag \"Core\" escreva junto com a build__\n\nEx: **Segadeira Core**\n\nGolem\nMaça 1H Clapper\nMartelo 1H\nMaça 1H\nMaça Pesada\nEquilibrio\nPara Tempo\nSilence\nDanacao\nExecrado\nLocus\nArvore\nJurador\nOculto\nEntalhada\nQueda Santa\nPostulento\nQuebra Reinos\nCaça Espiritos\nMaos Infernais\nSegadeira\nCravadas\nUrsinas\nAstral\nPrisma",
+        color=discord.Color.blue()
+    )
+    embed.set_footer(text=f"Regear criado por {ctx.author.display_name}")
+
+    target_channel = bot.get_channel(TOPIC_CHANNEL_ID)
+    if target_channel:
+        sent_message = await target_channel.send(embed=embed)
+        await sent_message.create_thread(name=mensagem)
+        confirmation_embed = discord.Embed(
+            title="Regear criado com sucesso!",
+            description="Regear e tópico criado com sucesso.",
+            color=discord.Color.green()
+        )
+        await ctx.send(embed=confirmation_embed, delete_after=5)
+    else:
+        error_embed = discord.Embed(
+            title="Erro ao criar regeae",
+            description="Canal de destino não encontrado.",
+            color=discord.Color.red()
+        )
+        await ctx.send(embed=error_embed, delete_after=5)
 
 @bot.command()
 async def mensagem(ctx, *, texto):
