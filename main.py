@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix='/', intents=intents)
 
 # --- Helper Functions ---
 def load_builds():
-    tree = ET.parse('builds.txt')
+    tree = ET.parse('builds.xml')
     root = tree.getroot()
     builds = {}
     # Itera sobre todas as tags <build> no arquivo XML
