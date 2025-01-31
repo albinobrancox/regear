@@ -171,7 +171,12 @@ async def criar_relatorio(ctx):
             color=discord.Color.red()
         )
         await ctx.send(embed=confirmation_embed)
-        
+
+@bot.command()
+async def mensagem(ctx, *, texto):
+    await ctx.message.delete()
+    await ctx.send(texto)
+    
 # --- Servidor HTTP Simples ---
 async def handle(request):
     return web.Response(text="Bot do Discord está rodando!")
@@ -190,11 +195,6 @@ async def main():
     await start_http_server()  # Inicia o servidor HTTP
     await bot.start(os.environ.get('token'))  # Inicia o bot do Discord
 
-@bot.command()
-async def mensagem(ctx, *, texto):
-    await ctx.message.delete()
-    await ctx.send(texto)
-    
 if __name__ == '__main__':
-    token = os.environ.get('token')
-    bot.run(token)
+    import asyncio
+    asyncio.run(main())
