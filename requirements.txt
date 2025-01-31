@@ -5,6 +5,7 @@ google-auth-oauthlib
 websocket-client
 datetime
 discord
+aiohttp
 flask
 irc
 pre-commit
