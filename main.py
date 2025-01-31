@@ -46,13 +46,17 @@ def load_builds():
 def create_embed(report_data):
     embed = discord.Embed(title="Regear Report", color=discord.Color.green())
 
-    # Numerar os campos Data e Link
-    data_values = "\n".join(f"[{i + 1}] {row[0]}" for i, row in enumerate(report_data))
-    nick_values = "\n".join(row[1] for row in report_data)
-    mensagem_values = "\n".join(row[2] for row in report_data)
-    link_values = "\n".join(f"[{i + 1}] {row[3]}" for i, row in enumerate(report_data))
-    emoji_values = "\n".join(row[4] for row in report_data)
-    build_registrada_values = "\n".join(row[5] for row in report_data)
+    def truncate(value, limit=1024):
+        """Trunca um valor para não exceder o limite de caracteres do Discord."""
+        return value[: limit - 3] + "..." if len(value) > limit else value
+
+    # Construir valores com truncamento para evitar erro de campo muito longo
+    data_values = truncate("\n".join(f"[{i + 1}] {row[0]}" for i, row in enumerate(report_data)))
+    nick_values = truncate("\n".join(row[1] for row in report_data))
+    mensagem_values = truncate("\n".join(row[2] for row in report_data))
+    link_values = truncate("\n".join(f"[{i + 1}] {row[3]}" for i, row in enumerate(report_data)))
+    emoji_values = truncate("\n".join(row[4] for row in report_data))
+    build_registrada_values = truncate("\n".join(row[5] for row in report_data))
 
     # Adicionar os campos ao embed
     embed.add_field(name="Data", value=data_values, inline=True)
