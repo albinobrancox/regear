@@ -1,0 +1,169 @@
+<buildstore>
+	<build category="CLAPPER">
+		<NomeBuild>Golem</NomeBuild>
+			<h2>
+				<Arma>Cajado Runico</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Soldado</Elmo>
+				<Peito>Judicante</Peito>
+				<Bota>Espreitador</Bota>
+				<Capa>Morgana</Capa>
+			</h2>
+
+		<NomeBuild>Maça 1H Clapper</NomeBuild>
+			<h2>
+				<Arma>Maça 1H</Arma>
+				<Secundaria>Edgide</Secundaria>
+				<Elmo>Clérigo</Elmo>
+				<Peito>Judicante</Peito>
+				<Bota>Caçador</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+	</build>
+
+	<build category="DEF TANK">
+		<NomeBuild>Martelo 1H</NomeBuild>
+			<h2>
+				<Arma>Martelo 1H</Arma>
+				<Secundaria>Bengala</Secundaria>
+				<Elmo>Judicante</Elmo>
+				<Peito>Guardiao</Peito>
+				<Bota>Feerica</Bota>
+				<Capa>Bridwatch</Capa>
+			</h2>
+
+		<NomeBuild>Maça 1H</NomeBuild>
+			<h2>
+				<Arma>Maça 1H</Arma>
+				<Secundaria>Bengala</Secundaria>
+				<Elmo>Judicante</Elmo>
+				<Peito>Tecelao</Peito>
+				<Bota>Bravura</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+
+		<NomeBuild>Maça Pesada</NomeBuild>
+			<h2>
+				<Arma>Maça Pesada</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Judicante</Elmo>
+				<Peito>Guardiao</Peito>
+				<Bota>Tecelao</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+
+		<NomeBuild>Equilibrio</NomeBuild>
+			<h2>
+				<Arma>Equilibrio</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Judicante</Elmo>
+				<Peito>Cavaleiro</Peito>
+				<Bota>Tecelao</Bota>
+				<Capa>Bridwatch</Capa>
+			</h2>
+
+		<NomeBuild>Para Tempo</NomeBuild>
+			<h2>
+				<Arma>Arcano Elevado</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Cavaleiro</Peito>
+				<Bota>Mercenario</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+	</build>
+
+	<build category="SUPPORT">
+		<NomeBuild>Danacao</NomeBuild>
+			<h2>
+				<Arma>Danacao</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Erudito</Peito>
+				<Bota>Bravura</Bota>
+				<Capa>Morgana</Capa>
+			</h2>
+
+		<NomeBuild>Execrado</NomeBuild>
+			<h2>
+				<Arma>Execrado</Arma>
+				<Secundaria>Egide</Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Demonia</Peito>
+				<Bota>Guarda Tumba</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+
+		<NomeBuild>Locus</NomeBuild>
+			<h2>
+				<Arma>Locus</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Demonia</Peito>
+				<Bota>Guarda Tumba</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+
+		<NomeBuild>Arvore</NomeBuild>
+			<h2>
+				<Arma>Cajado Enraizado</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Judicante</Peito>
+				<Bota>Bravura</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+
+		<NomeBuild>Jurador</NomeBuild>
+			<h2>
+				<Arma>Jurador</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Demonia</Peito>
+				<Bota>Guarda Tumba</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+
+		<NomeBuild>Oculto</NomeBuild>
+			<h2>
+				<Arma>Oculto</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Demonia</Peito>
+				<Bota>Mercenario</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+
+		<NomeBuild>Entalhada</NomeBuild>
+			<h2>
+				<Arma>Entalhada</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Cavaleiro</Elmo>
+				<Peito>Judicante</Peito>
+				<Bota>Bravura</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+	</build>
+
+	<build category="HEALER">
+		<NomeBuild>Queda Santa</NomeBuild>
+			<h2>
+				<Arma>Queda Santa</Arma>
+				<Secundaria>Brumario</Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Pureza</Peito>
+				<Bota>Espreitador</Bota>
+				<Capa>Lymhurst</Capa>
+			</h2>
+
+		<NomeBuild>Postulento</NomeBuild>
+			<h2>
+				<Arma>Postulento</Arma>
+				<Secundaria></Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Clérigo</Peito>
+				<Bota>Mercenario</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
+	</build>
+</buildstore>
