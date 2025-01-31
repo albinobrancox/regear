@@ -1,12 +1,9 @@
 import discord
 from discord.ext import commands
 import datetime
-from keep_alive import keep_alive
 import os
 import xml.etree.ElementTree as ET
 import io
-
-keep_alive()
 
 # --- Constants ---
 REPORT_CHANNEL_ID = 1332523572018675805
@@ -18,7 +15,7 @@ intents = discord.Intents.default()
 intents.messages = True
 intents.message_content = True
 intents.guilds = True
-intents.members = True  # Permitir acesso a informações completas dos membros
+intents.members = True  
 bot = commands.Bot(command_prefix='/', intents=intents)
 
 # --- Helper Functions ---
@@ -28,20 +25,7 @@ def load_builds():
     builds = {}
     for build in root.findall('.//build'):
         nome_build = build.find('NomeBuild').text
-        arma = build.find('.//Arma').text if build.find('.//Arma') is not None else None
-        secundaria = build.find('.//Secundaria').text if build.find('.//Secundaria') is not None else None
-        elmo = build.find('.//Elmo').text if build.find('.//Elmo') is not None else None
-        peito = build.find('.//Peito').text if build.find('.//Peito') is not None else None
-        bota = build.find('.//Bota').text if build.find('.//Bota') is not None else None
-        capa = build.find('.//Capa').text if build.find('.//Capa') is not None else None
-        builds[nome_build] = {
-            'Arma': arma,
-            'Secundaria': secundaria,
-            'Elmo': elmo,
-            'Peito': peito,
-            'Bota': bota,
-            'Capa': capa
-        }
+        builds[nome_build] = {tag: build.find(f'.//{tag}').text or '-' for tag in ['Arma', 'Secundaria', 'Elmo', 'Peito', 'Bota', 'Capa']}
     return builds
 
 def truncate(value, limit=1024):
@@ -51,12 +35,13 @@ def truncate(value, limit=1024):
 def create_embed(report_data):
     embed = discord.Embed(title="Regear Report", color=discord.Color.green())
 
-    data_values = truncate("\n".join(f"[{i + 1}] {row[0]}" for i, row in enumerate(report_data)))
-    nick_values = truncate("\n".join(row[1] for row in report_data))
-    mensagem_values = truncate("\n".join(row[2] for row in report_data))
-    link_values = truncate("\n".join(f"[{i + 1}] {row[3]}" for i, row in enumerate(report_data)))
-    emoji_values = truncate("\n".join(row[4] for row in report_data))
-    build_registrada_values = truncate("\n".join(row[5] for row in report_data))
+    limited_data = report_data[:15]  
+    data_values = truncate("\n".join(f"[{i + 1}] {row[0]}" for i, row in enumerate(limited_data)))
+    nick_values = truncate("\n".join(row[1] for row in limited_data))
+    mensagem_values = truncate("\n".join(row[2] for row in limited_data))
+    link_values = truncate("\n".join(f"[{i + 1}] {row[3]}" for i, row in enumerate(limited_data)))
+    emoji_values = truncate("\n".join(row[4] for row in limited_data))
+    build_registrada_values = truncate("\n".join(row[5] for row in limited_data))
 
     embed.add_field(name="Data", value=data_values, inline=True)
     embed.add_field(name="Nick", value=nick_values, inline=True)
@@ -65,7 +50,9 @@ def create_embed(report_data):
     embed.add_field(name="Emoji", value=emoji_values, inline=True)
     embed.add_field(name="Build Registrada", value=build_registrada_values, inline=True)
 
-    embed.set_footer(text=f"Relatório gerado em {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
+    if len(report_data) > 15:
+        embed.set_footer(text="Mostrando apenas as primeiras 15 linhas.")
+
     return embed
 
 def format_for_spreadsheet(report_data):
@@ -73,21 +60,16 @@ def format_for_spreadsheet(report_data):
     rows = [f'{row[0]};{row[1]};"{row[2]}";{row[3]};{row[4]};{row[5]}' for row in report_data]
     return f"{headers}\n" + "\n".join(rows)
 
+def format_purchase_report(purchase_data):
+    headers = "Item;Quantidade"
+    rows = [f'{item};{count}' for category in purchase_data.values() for item, count in category.items()]
+    return f"{headers}\n" + "\n".join(rows)
+
 async def send_long_message(channel, content):
     """Divide e envia uma mensagem longa em múltiplas partes de até 4000 caracteres."""
     parts = [content[i:i+4000] for i in range(0, len(content), 4000)]
     for part in parts:
         await channel.send(f"```{part}```")
-
-def create_purchase_report(purchase_data):
-    report = "**Relatório de Compra**\n\n"
-    for category, items in purchase_data.items():
-        report += f"**{category}:**\n"
-        for item, count in items.items():
-            if item:
-                report += f"{item};{count}\n"
-        report += "\n"
-    return report
 
 def get_emoji_status(reactions):
     for reaction in reactions:
@@ -130,7 +112,7 @@ async def criar_relatorio(ctx):
 
         if content in builds:
             for category, item in builds[content].items():
-                if item:
+                if item and item != "-":
                     purchase_data[category][item] = purchase_data[category].get(item, 0) + 1
 
     report_data.sort(key=lambda x: x[0])
@@ -146,7 +128,7 @@ async def criar_relatorio(ctx):
 
     embed = create_embed(report_data)
     spreadsheet_format = format_for_spreadsheet(report_data)
-    purchase_report = create_purchase_report(purchase_data)
+    purchase_report = format_purchase_report(purchase_data)
 
     report_channel = bot.get_channel(REPORT_CHANNEL_ID)
     if report_channel:
@@ -157,8 +139,12 @@ async def criar_relatorio(ctx):
             await report_channel.send(file=discord.File(file, "relatorio.csv"))
         else:
             await send_long_message(report_channel, spreadsheet_format)
-        
-        await report_channel.send(purchase_report)
+
+        if len(purchase_report) > 4000:
+            file = io.BytesIO(purchase_report.encode('utf-8'))
+            await report_channel.send(file=discord.File(file, "relatorio_compra.csv"))
+        else:
+            await send_long_message(report_channel, purchase_report)
 
         confirmation_embed = discord.Embed(
             title="REGEAR CLOSED!",
