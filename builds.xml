@@ -71,6 +71,16 @@
 				<Bota>Mercenario</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
+			
+		<NomeBuild>Silence</NomeBuild>
+			<h2>
+				<Arma>Silence</Arma>
+				<Secundaria>Egide</Secundaria>
+				<Elmo>Assassino</Elmo>
+				<Peito>Cavaleiro</Peito>
+				<Bota>Mercenario</Bota>
+				<Capa>Martlock</Capa>
+			</h2>
 	</build>
 
 	<build category="SUPPORT">
