@@ -19,7 +19,7 @@ intents.messages = True
 intents.message_content = True
 intents.guilds = True
 intents.members = True  
-bot = commands.Bot(intents=intents)  # Removido o command_prefix
+bot = commands.InteractionBot(intents=intents)
 
 # --- Helper Functions ---
 def load_builds():
