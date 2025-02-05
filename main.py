@@ -172,8 +172,8 @@ async def criar_relatorio(interaction: discord.Interaction):
         await interaction.response.send_message(embed=confirmation_embed)
         
 @bot.tree.command(name="criar_regear", description="Cria um regear de ZvZ.")
-@app_commands.describe(mensagem="Ex: REGEAR 01/01 23UTC")
-async def criar_regear(interaction: discord.Interaction, mensagem: str):
+@app_commands.describe(nome_regear="Ex: REGEAR 01/01 23UTC")
+async def criar_regear(interaction: discord.Interaction, nome_regear: str):
     if interaction.channel.id != MESSAGE_CHANNEL_ID:
         error_embed = discord.Embed(
             title="Erro ao criar regear",
@@ -184,7 +184,7 @@ async def criar_regear(interaction: discord.Interaction, mensagem: str):
         return
 
     embed = discord.Embed(
-        title=mensagem,
+        title=nome_regear,  # Alterado de mensagem para nome_regear
         description="**Copie sua build conforme abaixo, e cole junto com a print do regear!**\n**Se você morreu mais de uma vez, repita o processo para as demais mortes!**\n\n**Não coloque 2 prints em 1 mensagem.**\n\n__Se você tiver a tag \"Core\" escreva junto com a build__\n\nEx: **Segadeira Core**\n\nGolem\nMaça 1H Clapper\nMartelo 1H\nMaça 1H\nMaça Pesada\nEquilibrio\nPara Tempo\nSilence\nDanacao\nExecrado\nLocus\nArvore\nJurador\nOculto\nEntalhada\nQueda Santa\nPostulento\nQuebra Reinos\nCaça Espiritos\nMaos Infernais\nSegadeira\nCravadas\nUrsinas\nAstral\nPrisma",
         color=discord.Color.blue()
     )
@@ -193,7 +193,7 @@ async def criar_regear(interaction: discord.Interaction, mensagem: str):
     target_channel = bot.get_channel(TOPIC_CHANNEL_ID)
     if target_channel:
         sent_message = await target_channel.send(embed=embed)
-        await sent_message.create_thread(name=mensagem)
+        await sent_message.create_thread(name=nome_regear)  # Alterado para nome_regear
         confirmation_embed = discord.Embed(
             title="Regear criado com sucesso!",
             description="Regear e tópico criado com sucesso.",
@@ -202,12 +202,12 @@ async def criar_regear(interaction: discord.Interaction, mensagem: str):
         await interaction.response.send_message(embed=confirmation_embed, ephemeral=True)
     else:
         error_embed = discord.Embed(
-            title="Erro ao criar regeae",
+            title="Erro ao criar regear",
             description="Canal de destino não encontrado.",
             color=discord.Color.red()
         )
         await interaction.response.send_message(embed=error_embed, ephemeral=True)
-
+    
 @bot.tree.command(name="mensagem", description="Envia uma mensagem no canal usando bot.")
 @app_commands.describe(texto="mensagem.")
 async def mensagem(interaction: discord.Interaction, texto: str):
