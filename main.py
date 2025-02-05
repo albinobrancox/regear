@@ -111,11 +111,16 @@ def get_emoji_status(reactions):
 # --- Comandos Slash ---
 @bot.tree.command(name="criar_relatorio", description="Cria um relatório de regear.")
 async def criar_relatorio(interaction: discord.Interaction):
-    messages = [message async for message in interaction.channel.history(limit=None)]
+    messages = [message async for message in interaction.channel.history(limit=None)]  # Pega todas as mensagens do canal
 
-    if len(messages) > 2:
-        print("Mensagens capturadas:", [msg.content for msg in messages])
-
+    # Ordena as mensagens do mais antigo para o mais recente
+    messages.reverse()  
+    
+    # Filtra apenas as mensagens enviadas antes do comando
+    messages = [msg for msg in messages if msg.created_at < interaction.created_at]
+    
+    # Pega a última mensagem antes do comando ser executado
+    last_message = messages[-1] if messages else None
 
     if len(messages) < 2:
         embed = discord.Embed(
