@@ -234,6 +234,15 @@ async def main():
     await start_http_server()  # Inicia o servidor HTTP
     await bot.start(os.environ.get('token'))  # Inicia o bot do Discord
 
+@bot.event
+async def on_ready():
+    print(f'Bot {bot.user} está online!')
+    try:
+        synced = await bot.tree.sync()  # Sincroniza os comandos slash
+        print(f"Comandos sincronizados: {len(synced)}")
+    except Exception as e:
+        print(f"Erro ao sincronizar comandos: {e}")
+
 if __name__ == '__main__':
     import asyncio
     asyncio.run(main())
