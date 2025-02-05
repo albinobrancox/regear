@@ -172,7 +172,7 @@ async def criar_relatorio(interaction: discord.Interaction):
         await interaction.response.send_message(embed=confirmation_embed)
         
 @bot.tree.command(name="criar_regear", description="Cria um regear de ZvZ.")
-@app_commands.describe(texto="Ex: REGEAR 01/01 23UTC")
+@app_commands.describe(nome_regear="Ex: REGEAR 01/01 23UTC")
 async def criar_regear(interaction: discord.Interaction, mensagem: str):
     if interaction.channel.id != MESSAGE_CHANNEL_ID:
         error_embed = discord.Embed(
