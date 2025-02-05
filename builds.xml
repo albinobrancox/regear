@@ -19,9 +19,9 @@
 				<Bota>Caçador</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-	</build>
+	<!--</build>-->
 
-	<build category="DEF TANK">
+	<!--<build category="DEF TANK">-->
 		<NomeBuild>Martelo 1H</NomeBuild>
 			<h2>
 				<Arma>Martelo 1H</Arma>
@@ -81,9 +81,9 @@
 				<Bota>Mercenario</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-	</build>
+	<!--</build>-->
 
-	<build category="SUPPORT">
+	<!--<build category="SUPPORT">-->
 		<NomeBuild>Danacao</NomeBuild>
 			<h2>
 				<Arma>Danacao</Arma>
@@ -153,9 +153,9 @@
 				<Bota>Bravura</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-	</build>
+	<!--</build>-->
 
-	<build category="HEALER">
+	<!--<build category="HEALER">-->
 		<NomeBuild>Queda Santa</NomeBuild>
 			<h2>
 				<Arma>Queda Santa</Arma>
@@ -175,9 +175,9 @@
 				<Bota>Mercenario</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-	</build>
+	<!--</build>-->
 	
-	<build category="DPS">
+	<!--<build category="DPS">-->
 		<NomeBuild>Quebra Reinos</NomeBuild>
 			<h2>
 				<Arma>Quebra Reinos</Arma>
