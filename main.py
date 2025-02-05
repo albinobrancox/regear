@@ -18,8 +18,22 @@ intents = discord.Intents.default()
 intents.messages = True
 intents.message_content = True
 intents.guilds = True
-intents.members = True  
-bot = commands.InteractionBot(intents=intents)
+intents.members = True 
+
+class MyBot(discord.Client):
+    def __init__(self):
+        super().__init__(intents=intents)
+        self.tree = app_commands.CommandTree(self)
+
+    async def on_ready(self):
+        print(f'Bot {self.user} está online!')
+        try:
+            await self.tree.sync()  # Sincroniza os comandos slash
+            print("Comandos sincronizados com sucesso.")
+        except Exception as e:
+            print(f"Erro ao sincronizar comandos: {e}")
+
+bot = MyBot()
 
 # --- Helper Functions ---
 def load_builds():
