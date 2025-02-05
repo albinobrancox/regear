@@ -113,6 +113,10 @@ def get_emoji_status(reactions):
 async def criar_relatorio(interaction: discord.Interaction):
     messages = [message async for message in interaction.channel.history(limit=None)]
 
+    if len(messages) > 2:
+        print("Mensagens capturadas:", [msg.content for msg in messages])
+
+
     if len(messages) < 2:
         embed = discord.Embed(
             title="Erro ao gerar relatório",
