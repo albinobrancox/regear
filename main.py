@@ -109,7 +109,7 @@ def get_emoji_status(reactions):
     return '-'
 
 # --- Comandos Slash ---
-@bot.tree.command(name="criar-relatorio", description="Cria um relatório de regear.")
+@bot.tree.command(name="criar_relatorio", description="Cria um relatório de regear.")
 async def criar_relatorio(interaction: discord.Interaction):
     messages = [message async for message in interaction.channel.history(limit=None)]
 
@@ -171,8 +171,8 @@ async def criar_relatorio(interaction: discord.Interaction):
         )
         await interaction.response.send_message(embed=confirmation_embed)
         
-@bot.tree.command(name="criar-regear", description="Cria um regear de ZvZ.")
-@app_commands.describe(mensagem="A mensagem para o regear.")
+@bot.tree.command(name="criar_regear", description="Cria um regear de ZvZ.")
+@app_commands.describe(texto="Ex: REGEAR 01/01 23UTC")
 async def criar_regear(interaction: discord.Interaction, mensagem: str):
     if interaction.channel.id != MESSAGE_CHANNEL_ID:
         error_embed = discord.Embed(
