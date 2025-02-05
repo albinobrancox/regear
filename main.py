@@ -57,27 +57,27 @@ def load_builds():
 def truncate(value, limit=1024):
     return value[: limit - 3] + "..." if len(value) > limit else value
 
-def create_embed(report_data):
-    embed = discord.Embed(title="Regear Report", color=discord.Color.green())
-    limited_data = report_data[:15]  
-    data_values = truncate("\n".join(f"[{i + 1}] {row[0]}" for i, row in enumerate(limited_data)))
-    nick_values = truncate("\n".join(row[1] for row in limited_data))
-    mensagem_values = truncate("\n".join(row[2] for row in limited_data))
-    link_values = truncate("\n".join(f"[{i + 1}] {row[3]}" for i, row in enumerate(limited_data)))
-    emoji_values = truncate("\n".join(row[4] for row in limited_data))
-    build_registrada_values = truncate("\n".join(row[5] for row in limited_data))
+# def create_embed(report_data):
+    # embed = discord.Embed(title="Regear Report", color=discord.Color.green())
+    # limited_data = report_data[:15]  
+    # data_values = truncate("\n".join(f"[{i + 1}] {row[0]}" for i, row in enumerate(limited_data)))
+    # nick_values = truncate("\n".join(row[1] for row in limited_data))
+    # mensagem_values = truncate("\n".join(row[2] for row in limited_data))
+    # link_values = truncate("\n".join(f"[{i + 1}] {row[3]}" for i, row in enumerate(limited_data)))
+    # emoji_values = truncate("\n".join(row[4] for row in limited_data))
+    # build_registrada_values = truncate("\n".join(row[5] for row in limited_data))
 
-    embed.add_field(name="Data", value=data_values, inline=True)
-    embed.add_field(name="Nick", value=nick_values, inline=True)
-    embed.add_field(name="Build", value=mensagem_values, inline=True)
-    embed.add_field(name="Link", value=link_values, inline=True)
-    embed.add_field(name="Emoji", value=emoji_values, inline=True)
-    embed.add_field(name="Build Registrada", value=build_registrada_values, inline=True)
+    # embed.add_field(name="Data", value=data_values, inline=True)
+    # embed.add_field(name="Nick", value=nick_values, inline=True)
+    # embed.add_field(name="Build", value=mensagem_values, inline=True)
+    # embed.add_field(name="Link", value=link_values, inline=True)
+    # embed.add_field(name="Emoji", value=emoji_values, inline=True)
+    # embed.add_field(name="Build Registrada", value=build_registrada_values, inline=True)
 
-    if len(report_data) > 15:
-        embed.set_footer(text="Mostrando apenas as primeiras 15 linhas.")
+    # if len(report_data) > 15:
+        # embed.set_footer(text="Mostrando apenas as primeiras 15 linhas.")
 
-    return embed
+    # return embed
 
 def format_for_spreadsheet(report_data):
     headers = "Data;Nick;Build;Link;Emoji;Build_Registrada"
@@ -109,24 +109,24 @@ def get_emoji_status(reactions):
     return '-'
 
 # --- Comandos Slash ---
-@bot.tree.command(name="criar_relatorio", description="Cria um relatório de regear.")
+@bot.tree.command(name="criar relatorio", description="Cria um relatório de regear.")
 async def criar_relatorio(interaction: discord.Interaction):
     messages = [message async for message in interaction.channel.history(limit=None)]
 
-    if len(messages) < 3:
+    if len(messages) < 2:
         embed = discord.Embed(
             title="Erro ao gerar relatório",
             description="Não há mensagens suficientes para gerar o relatório.",
             color=discord.Color.red()
         )
-        await interaction.response.send_message(embed=embed, ephemeral=True, delete_after=5)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
         return
 
     builds = load_builds()
     report_data = []
     purchase_data = {key: {} for key in ['Arma', 'Secundaria', 'Elmo', 'Peito', 'Bota', 'Capa']}
 
-    for message in messages[1:-1]:
+    for message in messages[1:]:
         if not message.content or not message.attachments:
             continue
 
@@ -153,7 +153,7 @@ async def criar_relatorio(interaction: discord.Interaction):
             description="Nenhuma mensagem válida encontrada para gerar o relatório.",
             color=discord.Color.red()
         )
-        await interaction.response.send_message(embed=embed, ephemeral=True, delete_after=5)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
         return
 
     spreadsheet_format = format_for_spreadsheet(report_data)
@@ -171,16 +171,16 @@ async def criar_relatorio(interaction: discord.Interaction):
         )
         await interaction.response.send_message(embed=confirmation_embed)
         
-@bot.tree.command(name="criar_regear", description="Cria um regear com uma mensagem específica.")
+@bot.tree.command(name="criar regear", description="Cria um regear de ZvZ.")
 @app_commands.describe(mensagem="A mensagem para o regear.")
 async def criar_regear(interaction: discord.Interaction, mensagem: str):
     if interaction.channel.id != MESSAGE_CHANNEL_ID:
         error_embed = discord.Embed(
             title="Erro ao criar regear",
-            description="Este comando só pode ser usado no canal designado.",
+            description="Este comando só pode ser usado no canal comandos.",
             color=discord.Color.red()
         )
-        await interaction.response.send_message(embed=error_embed, ephemeral=True, delete_after=5)
+        await interaction.response.send_message(embed=error_embed, ephemeral=True)
         return
 
     embed = discord.Embed(
@@ -199,18 +199,27 @@ async def criar_regear(interaction: discord.Interaction, mensagem: str):
             description="Regear e tópico criado com sucesso.",
             color=discord.Color.green()
         )
-        await interaction.response.send_message(embed=confirmation_embed, ephemeral=True, delete_after=5)
+        await interaction.response.send_message(embed=confirmation_embed, ephemeral=True)
     else:
         error_embed = discord.Embed(
             title="Erro ao criar regeae",
             description="Canal de destino não encontrado.",
             color=discord.Color.red()
         )
-        await interaction.response.send_message(embed=error_embed, ephemeral=True, delete_after=5)
+        await interaction.response.send_message(embed=error_embed, ephemeral=True)
 
-@bot.tree.command(name="mensagem", description="Envia uma mensagem no canal.")
-@app_commands.describe(texto="O texto da mensagem.")
+@bot.tree.command(name="mensagem", description="Envia uma mensagem no canal usando bot.")
+@app_commands.describe(texto="mensagem.")
 async def mensagem(interaction: discord.Interaction, texto: str):
+    # Verifica se o usuário tem permissão de administrador
+    if not interaction.user.guild_permissions.administrator:
+        await interaction.response.send_message(
+            "Você não tem permissão para usar este comando.",
+            ephemeral=True
+        )
+        return
+
+    # Se o usuário for administrador, envia a mensagem
     await interaction.response.send_message(texto)
 
 # --- Servidor HTTP Simples ---
