@@ -37,33 +37,30 @@ bot = MyBot()
 
 # --- Helper Functions ---
 def load_builds():
-    tree = ET.parse('builds.xml')
+    tree = ET.parse("builds.xml")
     root = tree.getroot()
     builds = {}
 
-    # Percorre todas as builds
-    for build in root.findall('.//build'):
-        nome_builds = build.findall('NomeBuild')  # Lista de nomes das builds
-        h2_elements = build.findall('h2')  # Lista de equipamentos das builds
+    for build in root.findall(".//build"):
+        for set_element in build.findall("set"):
+            nome_build = set_element.find("NomeBuild")
+            h2_element = set_element.find("h2")
 
-        if len(nome_builds) != len(h2_elements):
-            print("Erro: O número de NomeBuild não corresponde ao número de h2 no XML.")
-            continue
+            if nome_build is None or h2_element is None:
+                continue  # Ignora caso esteja mal formatado
 
-        # Associa cada NomeBuild ao h2 correspondente
-        for i in range(len(nome_builds)):
-            nome = nome_builds[i].text.strip().lower()
-            h2_element = h2_elements[i]  # Pega o h2 associado a esse NomeBuild
-            
+            nome = nome_build.text.strip().lower()  # Converte para minúsculas e remove espaços extras
+
             itens = {
-                'Arma': h2_element.find('Arma').text if h2_element.find('Arma') is not None else '-',
-                'Secundaria': h2_element.find('Secundaria').text if h2_element.find('Secundaria') is not None else '-',
-                'Elmo': h2_element.find('Elmo').text if h2_element.find('Elmo') is not None else '-',
-                'Peito': h2_element.find('Peito').text if h2_element.find('Peito') is not None else '-',
-                'Bota': h2_element.find('Bota').text if h2_element.find('Bota') is not None else '-',
-                'Capa': h2_element.find('Capa').text if h2_element.find('Capa') is not None else '-',
+                "Arma": h2_element.find("Arma").text.strip() if h2_element.find("Arma") is not None else "-",
+                "Secundaria": h2_element.find("Secundaria").text.strip() if h2_element.find("Secundaria") is not None else "-",
+                "Elmo": h2_element.find("Elmo").text.strip() if h2_element.find("Elmo") is not None else "-",
+                "Peito": h2_element.find("Peito").text.strip() if h2_element.find("Peito") is not None else "-",
+                "Bota": h2_element.find("Bota").text.strip() if h2_element.find("Bota") is not None else "-",
+                "Capa": h2_element.find("Capa").text.strip() if h2_element.find("Capa") is not None else "-",
             }
-            builds[nome] = itens
+
+            builds[nome] = itens  # Armazena a build no dicionário
 
     return builds
 
@@ -159,7 +156,7 @@ async def criar_relatorio(interaction: discord.Interaction):
         link = attachment_links[0] if attachment_links else "-"
         emoji_status = get_emoji_status(message.reactions)
 
-        build_registrada = "Sim" if content in builds else "Não"
+        build_registrada = "Sim" if content.lower().strip() in builds else "Não"
         report_data.append([timestamp, nick, content, link, emoji_status, build_registrada])
 
         if content in builds:
