@@ -46,22 +46,23 @@ def load_builds():
             nome_build = set_element.find("NomeBuild")
             h2_element = set_element.find("h2")
 
-            if nome_build is None or h2_element is None:
-                continue  # Ignora caso esteja mal formatado
+            if nome_build is None or h2_element is None or nome_build.text is None:
+                continue  # Pula entradas inválidas
 
-            nome = nome_build.text.strip().lower()  # Converte para minúsculas e remove espaços extras
+            nome = nome_build.text.strip().lower()  # Normaliza o nome da build
 
             itens = {
-                "Arma": h2_element.find("Arma").text.strip() if h2_element.find("Arma") is not None else "-",
-                "Secundaria": h2_element.find("Secundaria").text.strip() if h2_element.find("Secundaria") is not None else "-",
-                "Elmo": h2_element.find("Elmo").text.strip() if h2_element.find("Elmo") is not None else "-",
-                "Peito": h2_element.find("Peito").text.strip() if h2_element.find("Peito") is not None else "-",
-                "Bota": h2_element.find("Bota").text.strip() if h2_element.find("Bota") is not None else "-",
-                "Capa": h2_element.find("Capa").text.strip() if h2_element.find("Capa") is not None else "-",
+                "Arma": h2_element.find("Arma").text.strip() if h2_element.find("Arma") is not None and h2_element.find("Arma").text else "-",
+                "Secundaria": h2_element.find("Secundaria").text.strip() if h2_element.find("Secundaria") is not None and h2_element.find("Secundaria").text else "-",
+                "Elmo": h2_element.find("Elmo").text.strip() if h2_element.find("Elmo") is not None and h2_element.find("Elmo").text else "-",
+                "Peito": h2_element.find("Peito").text.strip() if h2_element.find("Peito") is not None and h2_element.find("Peito").text else "-",
+                "Bota": h2_element.find("Bota").text.strip() if h2_element.find("Bota") is not None and h2_element.find("Bota").text else "-",
+                "Capa": h2_element.find("Capa").text.strip() if h2_element.find("Capa") is not None and h2_element.find("Capa").text else "-",
             }
 
-            builds[nome] = itens  # Armazena a build no dicionário
+            builds[nome] = itens  # Salva a build corretamente
 
+    print("Builds carregadas:", builds)  # Depuração
     return builds
 
 def truncate(value, limit=1024):
@@ -159,8 +160,9 @@ async def criar_relatorio(interaction: discord.Interaction):
         build_registrada = "Sim" if content.lower().strip() in builds else "Não"
         report_data.append([timestamp, nick, content, link, emoji_status, build_registrada])
 
-        if content in builds:
-            for category, item in builds[content].items():
+        content_normalized = content.lower().strip()  # Normaliza a build antes da busca
+        if content_normalized in builds:
+            for category, item in builds[content_normalized].items():
                 if item and item != "-":
                     purchase_data[category][item] = purchase_data[category].get(item, 0) + 1
 
