@@ -40,18 +40,21 @@ def load_builds():
     tree = ET.parse('builds.xml')
     root = tree.getroot()
     builds = {}
+
     for build in root.findall('.//build'):
         for nome_build in build.findall('NomeBuild'):
             nome = nome_build.text.strip().lower()
-            itens = {
-                'Arma': build.find('.//Arma').text or '-',
-                'Secundaria': build.find('.//Secundaria').text or '-',
-                'Elmo': build.find('.//Elmo').text or '-',
-                'Peito': build.find('.//Peito').text or '-',
-                'Bota': build.find('.//Bota').text or '-',
-                'Capa': build.find('.//Capa').text or '-',
-            }
-            builds[nome] = itens
+            h2_element = nome_build.find('./following-sibling::h2')  # Pega o h2 seguinte ao NomeBuild
+            if h2_element is not None:
+                itens = {
+                    'Arma': h2_element.find('Arma').text if h2_element.find('Arma') is not None else '-',
+                    'Secundaria': h2_element.find('Secundaria').text if h2_element.find('Secundaria') is not None else '-',
+                    'Elmo': h2_element.find('Elmo').text if h2_element.find('Elmo') is not None else '-',
+                    'Peito': h2_element.find('Peito').text if h2_element.find('Peito') is not None else '-',
+                    'Bota': h2_element.find('Bota').text if h2_element.find('Bota') is not None else '-',
+                    'Capa': h2_element.find('Capa').text if h2_element.find('Capa') is not None else '-',
+                }
+                builds[nome] = itens
     return builds
 
 def truncate(value, limit=1024):
