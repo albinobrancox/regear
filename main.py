@@ -41,20 +41,30 @@ def load_builds():
     root = tree.getroot()
     builds = {}
 
+    # Percorre todas as builds
     for build in root.findall('.//build'):
-        for nome_build in build.findall('NomeBuild'):
-            nome = nome_build.text.strip().lower()
-            h2_element = nome_build.find('./following-sibling::h2')  # Pega o h2 seguinte ao NomeBuild
-            if h2_element is not None:
-                itens = {
-                    'Arma': h2_element.find('Arma').text if h2_element.find('Arma') is not None else '-',
-                    'Secundaria': h2_element.find('Secundaria').text if h2_element.find('Secundaria') is not None else '-',
-                    'Elmo': h2_element.find('Elmo').text if h2_element.find('Elmo') is not None else '-',
-                    'Peito': h2_element.find('Peito').text if h2_element.find('Peito') is not None else '-',
-                    'Bota': h2_element.find('Bota').text if h2_element.find('Bota') is not None else '-',
-                    'Capa': h2_element.find('Capa').text if h2_element.find('Capa') is not None else '-',
-                }
-                builds[nome] = itens
+        nome_builds = build.findall('NomeBuild')  # Lista de nomes das builds
+        h2_elements = build.findall('h2')  # Lista de equipamentos das builds
+
+        if len(nome_builds) != len(h2_elements):
+            print("Erro: O número de NomeBuild não corresponde ao número de h2 no XML.")
+            continue
+
+        # Associa cada NomeBuild ao h2 correspondente
+        for i in range(len(nome_builds)):
+            nome = nome_builds[i].text.strip().lower()
+            h2_element = h2_elements[i]  # Pega o h2 associado a esse NomeBuild
+            
+            itens = {
+                'Arma': h2_element.find('Arma').text if h2_element.find('Arma') is not None else '-',
+                'Secundaria': h2_element.find('Secundaria').text if h2_element.find('Secundaria') is not None else '-',
+                'Elmo': h2_element.find('Elmo').text if h2_element.find('Elmo') is not None else '-',
+                'Peito': h2_element.find('Peito').text if h2_element.find('Peito') is not None else '-',
+                'Bota': h2_element.find('Bota').text if h2_element.find('Bota') is not None else '-',
+                'Capa': h2_element.find('Capa').text if h2_element.find('Capa') is not None else '-',
+            }
+            builds[nome] = itens
+
     return builds
 
 def truncate(value, limit=1024):
