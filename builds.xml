@@ -1,58 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <buildstore>
-	<build category="CLAPPER">
-		<NomeBuild>Golem</NomeBuild>
-			<h2>
-				<Arma>Cajado Runico</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Soldado</Elmo>
-				<Peito>Judicante</Peito>
-				<Bota>Espreitador</Bota>
-				<Capa>Morgana</Capa>
-			</h2>
+    <build category="CLAPPER">
+        <set>
+            <NomeBuild>Golem</NomeBuild>
+            <h2>
+                <Arma>Cajado Runico</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Soldado</Elmo>
+                <Peito>Judicante</Peito>
+                <Bota>Espreitador</Bota>
+                <Capa>Morgana</Capa>
+            </h2>
+        </set>
 
-		<NomeBuild>Maça 1H Clapper</NomeBuild>
-			<h2>
-				<Arma>Maça 1H</Arma>
-				<Secundaria>Edgide</Secundaria>
-				<Elmo>Clérigo</Elmo>
-				<Peito>Judicante</Peito>
-				<Bota>Caçador</Bota>
-				<Capa>Martlock</Capa>
-			</h2>
-	<!--</build>-->
+        <set>
+            <NomeBuild>Maça 1H Clapper</NomeBuild>
+            <h2>
+                <Arma>Maça 1H</Arma>
+                <Secundaria>Egide</Secundaria>
+                <Elmo>Clérigo</Elmo>
+                <Peito>Judicante</Peito>
+                <Bota>Caçador</Bota>
+                <Capa>Martlock</Capa>
+            </h2>
+        </set>
+    </build>
 
-	<!--<build category="DEF TANK">-->
-		<NomeBuild>Martelo 1H</NomeBuild>
-			<h2>
-				<Arma>Martelo 1H</Arma>
-				<Secundaria>Bengala</Secundaria>
-				<Elmo>Judicante</Elmo>
-				<Peito>Guardiao</Peito>
-				<Bota>Feerica</Bota>
-				<Capa>Bridwatch</Capa>
-			</h2>
+    <build category="DEF TANK">
+        <set>
+            <NomeBuild>Martelo 1H</NomeBuild>
+            <h2>
+                <Arma>Martelo 1H</Arma>
+                <Secundaria>Bengala</Secundaria>
+                <Elmo>Judicante</Elmo>
+                <Peito>Guardiao</Peito>
+                <Bota>Feerica</Bota>
+                <Capa>Bridwatch</Capa>
+            </h2>
+        </set>
 
-		<NomeBuild>Maça 1H</NomeBuild>
-			<h2>
-				<Arma>Maça 1H</Arma>
-				<Secundaria>Bengala</Secundaria>
-				<Elmo>Judicante</Elmo>
-				<Peito>Tecelao</Peito>
-				<Bota>Bravura</Bota>
-				<Capa>Martlock</Capa>
-			</h2>
+        <set>
+            <NomeBuild>Maça 1H</NomeBuild>
+            <h2>
+                <Arma>Maça 1H</Arma>
+                <Secundaria>Bengala</Secundaria>
+                <Elmo>Judicante</Elmo>
+                <Peito>Tecelao</Peito>
+                <Bota>Bravura</Bota>
+                <Capa>Martlock</Capa>
+            </h2>
+        </set>
 
-		<NomeBuild>Maça Pesada</NomeBuild>
-			<h2>
-				<Arma>Maça Pesada</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Judicante</Elmo>
-				<Peito>Guardiao</Peito>
-				<Bota>Tecelao</Bota>
-				<Capa>Martlock</Capa>
-			</h2>
-
-		<NomeBuild>Equilibrio</NomeBuild>
+        <set>
+            <NomeBuild>Maça Pesada</NomeBuild>
+            <h2>
+                <Arma>Maça Pesada</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Judicante</Elmo>
+                <Peito>Guardiao</Peito>
+                <Bota>Tecelao</Bota>
+                <Capa>Martlock</Capa>
+            </h2>
+        </set>
+		
+		<set>
+			<NomeBuild>Equilibrio</NomeBuild>
 			<h2>
 				<Arma>Equilibrio</Arma>
 				<Secundaria></Secundaria>
@@ -61,8 +73,10 @@
 				<Bota>Tecelao</Bota>
 				<Capa>Bridwatch</Capa>
 			</h2>
-
-		<NomeBuild>Para Tempo</NomeBuild>
+		</set>
+		
+		<set>
+			<NomeBuild>Para Tempo</NomeBuild>
 			<h2>
 				<Arma>Arcano Elevado</Arma>
 				<Secundaria></Secundaria>
@@ -71,8 +85,10 @@
 				<Bota>Mercenario</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-			
-		<NomeBuild>Silence</NomeBuild>
+		</set>
+		
+		<set>
+			<NomeBuild>Silence</NomeBuild>
 			<h2>
 				<Arma>Silence</Arma>
 				<Secundaria>Egide</Secundaria>
@@ -81,40 +97,48 @@
 				<Bota>Mercenario</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-	<!--</build>-->
+		</set>
+    </build>
 
-	<!--<build category="SUPPORT">-->
-		<NomeBuild>Danacao</NomeBuild>
-			<h2>
-				<Arma>Danacao</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Assassino</Elmo>
-				<Peito>Erudito</Peito>
-				<Bota>Bravura</Bota>
-				<Capa>Morgana</Capa>
-			</h2>
+    <build category="SUPPORT">
+        <set>
+            <NomeBuild>Danacao</NomeBuild>
+            <h2>
+                <Arma>Danacao</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Assassino</Elmo>
+                <Peito>Erudito</Peito>
+                <Bota>Bravura</Bota>
+                <Capa>Morgana</Capa>
+            </h2>
+        </set>
 
-		<NomeBuild>Execrado</NomeBuild>
-			<h2>
-				<Arma>Execrado</Arma>
-				<Secundaria>Egide</Secundaria>
-				<Elmo>Assassino</Elmo>
-				<Peito>Demonia</Peito>
-				<Bota>Guarda Tumba</Bota>
-				<Capa>Martlock</Capa>
-			</h2>
+        <set>
+            <NomeBuild>Execrado</NomeBuild>
+            <h2>
+                <Arma>Execrado</Arma>
+                <Secundaria>Egide</Secundaria>
+                <Elmo>Assassino</Elmo>
+                <Peito>Demonia</Peito>
+                <Bota>Guarda Tumba</Bota>
+                <Capa>Martlock</Capa>
+            </h2>
+        </set>
 
-		<NomeBuild>Locus</NomeBuild>
-			<h2>
-				<Arma>Locus</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Assassino</Elmo>
-				<Peito>Demonia</Peito>
-				<Bota>Guarda Tumba</Bota>
-				<Capa>Martlock</Capa>
-			</h2>
-
-		<NomeBuild>Arvore</NomeBuild>
+        <set>
+            <NomeBuild>Locus</NomeBuild>
+            <h2>
+                <Arma>Locus</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Assassino</Elmo>
+                <Peito>Demonia</Peito>
+                <Bota>Guarda Tumba</Bota>
+                <Capa>Martlock</Capa>
+            </h2>
+        </set>
+		
+		<set>
+			<NomeBuild>Arvore</NomeBuild>
 			<h2>
 				<Arma>Cajado Enraizado</Arma>
 				<Secundaria></Secundaria>
@@ -123,8 +147,10 @@
 				<Bota>Bravura</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-
-		<NomeBuild>Jurador</NomeBuild>
+		</set>
+		
+		<set>
+			<NomeBuild>Jurador</NomeBuild>
 			<h2>
 				<Arma>Jurador</Arma>
 				<Secundaria></Secundaria>
@@ -133,8 +159,10 @@
 				<Bota>Guarda Tumba</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-
-		<NomeBuild>Oculto</NomeBuild>
+		</set>
+		
+		<set>
+			<NomeBuild>Oculto</NomeBuild>
 			<h2>
 				<Arma>Oculto</Arma>
 				<Secundaria></Secundaria>
@@ -143,8 +171,10 @@
 				<Bota>Mercenario</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-
-		<NomeBuild>Entalhada</NomeBuild>
+		</set>
+		
+		<set>
+			<NomeBuild>Entalhada</NomeBuild>
 			<h2>
 				<Arma>Entalhada</Arma>
 				<Secundaria></Secundaria>
@@ -153,42 +183,50 @@
 				<Bota>Bravura</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-	<!--</build>-->
+		</set>
+    </build>
 
-	<!--<build category="HEALER">-->
-		<NomeBuild>Queda Santa</NomeBuild>
-			<h2>
-				<Arma>Queda Santa</Arma>
-				<Secundaria>Brumario</Secundaria>
-				<Elmo>Assassino</Elmo>
-				<Peito>Pureza</Peito>
-				<Bota>Espreitador</Bota>
-				<Capa>Lymhurst</Capa>
-			</h2>
+    <build category="HEALER">
+        <set>
+            <NomeBuild>Queda Santa</NomeBuild>
+            <h2>
+                <Arma>Queda Santa</Arma>
+                <Secundaria>Brumario</Secundaria>
+                <Elmo>Assassino</Elmo>
+                <Peito>Pureza</Peito>
+                <Bota>Espreitador</Bota>
+                <Capa>Lymhurst</Capa>
+            </h2>
+        </set>
 
-		<NomeBuild>Postulento</NomeBuild>
-			<h2>
-				<Arma>Postulento</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Assassino</Elmo>
-				<Peito>Clérigo</Peito>
-				<Bota>Mercenario</Bota>
-				<Capa>Martlock</Capa>
-			</h2>
-	<!--</build>-->
-	
-	<!--<build category="DPS">-->
-		<NomeBuild>Quebra Reinos</NomeBuild>
-			<h2>
-				<Arma>Quebra Reinos</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Cavaleiro</Elmo>
-				<Peito>Andarilho</Peito>
-				<Bota>Espreitador</Bota>
-				<Capa>Martlock</Capa>
-			</h2>
-			
-		<NomeBuild>Caça Espiritos</NomeBuild>
+        <set>
+            <NomeBuild>Postulento</NomeBuild>
+            <h2>
+                <Arma>Postulento</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Assassino</Elmo>
+                <Peito>Clérigo</Peito>
+                <Bota>Mercenario</Bota>
+                <Capa>Martlock</Capa>
+            </h2>
+        </set>
+    </build>
+
+    <build category="DPS">
+        <set>
+            <NomeBuild>Quebra Reinos</NomeBuild>
+            <h2>
+                <Arma>Quebra Reinos</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Cavaleiro</Elmo>
+                <Peito>Andarilho</Peito>
+                <Bota>Espreitador</Bota>
+                <Capa>Martlock</Capa>
+            </h2>
+        </set>
+		
+		<set>
+			<NomeBuild>Caça Espiritos</NomeBuild>
 			<h2>
 				<Arma>Caça Espiritos</Arma>
 				<Secundaria></Secundaria>
@@ -197,28 +235,34 @@
 				<Bota>Espreitador</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-			
-		<NomeBuild>Maos Infernais</NomeBuild>
-			<h2>
-				<Arma>Maos Infernais</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Soldado</Elmo>
-				<Peito>Andarilho</Peito>
-				<Bota>Espreitador</Bota>
-				<Capa>Martlock</Capa>
-			</h2>
-			
-		<NomeBuild>Segadeira</NomeBuild>
-			<h2>
-				<Arma>Segadeira</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Soldado</Elmo>
-				<Peito>Andarilho</Peito>
-				<Bota>Espreitador</Bota>
-				<Capa>Lymhurst</Capa>
-			</h2>
-			
-		<NomeBuild>Cravadas</NomeBuild>
+		</set>
+		
+        <set>
+            <NomeBuild>Maos Infernais</NomeBuild>
+            <h2>
+                <Arma>Maos Infernais</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Soldado</Elmo>
+                <Peito>Andarilho</Peito>
+                <Bota>Espreitador</Bota>
+                <Capa>Martlock</Capa>
+            </h2>
+        </set>
+
+        <set>
+            <NomeBuild>Segadeira</NomeBuild>
+            <h2>
+                <Arma>Segadeira</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Soldado</Elmo>
+                <Peito>Andarilho</Peito>
+                <Bota>Espreitador</Bota>
+                <Capa>Lymhurst</Capa>
+            </h2>
+        </set>
+		
+		<set>
+			<NomeBuild>Cravadas</NomeBuild>
 			<h2>
 				<Arma>Cravadas</Arma>
 				<Secundaria></Secundaria>
@@ -227,7 +271,9 @@
 				<Bota>Espreitador</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-			
+		</set>
+
+		<set>
 		<NomeBuild>Ursinas</NomeBuild>
 			<h2>
 				<Arma>Ursinas</Arma>
@@ -237,15 +283,18 @@
 				<Bota>Espreitador</Bota>
 				<Capa>Martlock</Capa>
 			</h2>
-			
-		<NomeBuild>Astral</NomeBuild>
-			<h2>
-				<Arma>Astral</Arma>
-				<Secundaria></Secundaria>
-				<Elmo>Assassino</Elmo>
-				<Peito>Soldado</Peito>
-				<Bota>Sandalias Reais</Bota>
-				<Capa>Lymhurst</Capa>
-			</h2>
-	</build>
+		</set>
+		
+        <set>
+            <NomeBuild>Astral</NomeBuild>
+            <h2>
+                <Arma>Astral</Arma>
+                <Secundaria></Secundaria>
+                <Elmo>Assassino</Elmo>
+                <Peito>Soldado</Peito>
+                <Bota>Sandalias Reais</Bota>
+                <Capa>Lymhurst</Capa>
+            </h2>
+        </set>
+    </build>
 </buildstore>
