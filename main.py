@@ -257,10 +257,10 @@ async def register(interaction: discord.Interaction, nick: str):
             print(f"[LOG] O usuário {nick} não foi encontrado na guilda.")
             embed = discord.Embed(
                 title="Erro no registro",
-                description="Você não está na guilda Ethereal.",
+                description=f"O {nick} não está na guilda Ethereal, ou a API do Albion ainda não está atualizada",
                 color=discord.Color.red()
             )
-            await interaction.response.send_message(embed=embed, ephemeral=True)
+            await interaction.response.send_message(embed=embed, ephemeral=False)
             return
 
         # Atribui o cargo de Membro e renomeia o usuário
@@ -278,7 +278,7 @@ async def register(interaction: discord.Interaction, nick: str):
                     description=f"Registrado com sucesso! Bem-vindo, {nick}.",
                     color=discord.Color.green()
                 )
-                await interaction.response.send_message(embed=embed, ephemeral=True)
+                await interaction.response.send_message(embed=embed, ephemeral=False)
             else:
                 print("[ERRO] Cargo de Membro não encontrado.")
                 embed = discord.Embed(
