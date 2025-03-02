@@ -1,11 +1,12 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord import app_commands
 import datetime
 import os
 import xml.etree.ElementTree as ET
 import io
 from aiohttp import web
+import requests
 
 # --- Constants ---
 REPORT_CHANNEL_ID = 1345553404432482335
