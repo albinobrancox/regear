@@ -304,6 +304,52 @@ async def register(interaction: discord.Interaction, nick: str):
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
+@bot.tree.command(name="unregister", description="Remove um membro do servidor.")
+@app_commands.describe(member="Membro a ser removido")
+@app_commands.checks.has_permissions(administrator=True)  # Apenas administradores podem executar!
+async def unregister(interaction: discord.Interaction, member: discord.Member):
+    print(f"[LOG] Comando /unregister acionado por {interaction.user} para remover {member.name}")
+    
+    try:
+        # Remove todas as roles do membro
+        await member.edit(roles=[])
+        print(f"[LOG] Todas as tags removidas do membro {member.name}")
+        
+        # Expulsa o membro do servidor
+        await member.kick(reason="Removido manualmente pelo comando /unregister")
+        print(f"[LOG] {member.name} foi expulso do servidor.")
+        
+        # Remove o nick da lista de registrados
+        if member.id in registered_nicks:
+            del registered_nicks[member.id]
+        
+        confirmation_embed = discord.Embed(
+            title="Membro removido",
+            description=f"{member.name} foi removido do servidor e suas tags foram apagadas.",
+            color=discord.Color.green()
+        )
+        await interaction.response.send_message(embed=confirmation_embed, ephemeral=False)
+    except Exception as e:
+        print(f"[ERRO] Erro ao remover {member.name}: {e}")
+        error_embed = discord.Embed(
+            title="Erro ao remover membro",
+            description="Erro ao tentar remover o membro. Contate um administrador.",
+            color=discord.Color.red()
+        )
+        await interaction.response.send_message(embed=error_embed, ephemeral=True)
+
+# Mensagem de erro se um usuário sem permissão tentar usar /unregister
+@unregister.error
+async def unregister_error(interaction: discord.Interaction, error):
+    if isinstance(error, app_commands.errors.MissingPermissions):
+        print(f"[ERRO] {interaction.user} tentou usar /unregister sem permissão.")
+        error_embed = discord.Embed(
+            title="Permissão negada",
+            description="Você não tem permissão para executar este comando.",
+            color=discord.Color.red()
+        )
+        await interaction.response.send_message(embed=error_embed, ephemeral=False)
+
 
 # --- Servidor HTTP Simples ---
 async def handle(request):
