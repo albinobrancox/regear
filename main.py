@@ -235,9 +235,7 @@ async def register(interaction: discord.Interaction, nick: str):
     print(f"[LOG] Comando /register acionado por {interaction.user} com nick: {nick}")
     
     try:
-        # Verifica se o nick já está registrado por outro membro no Discord
         if nick in registered_nicks.values():
-            print(f"[LOG] Tentativa de registro com nick já usado: {nick}")
             embed = discord.Embed(
                 title="Erro no registro",
                 description="Este nick já foi registrado por outro membro. Se esse for seu nick, contate um administrador.",
@@ -246,15 +244,12 @@ async def register(interaction: discord.Interaction, nick: str):
             await interaction.response.send_message(embed=embed, ephemeral=True)
             return
 
-        # Verifica se o jogador está na guilda no Albion Online
         response = requests.get(ALBION_API_URL)
         response.raise_for_status()
         members = response.json()
-        print("[LOG] Lista de membros da guilda obtida com sucesso.")
 
         player = next((m for m in members if m['Name'] == nick), None)
         if not player:
-            print(f"[LOG] O usuário {nick} não foi encontrado na guilda.")
             embed = discord.Embed(
                 title="Erro no registro",
                 description=f"O {nick} não está na guilda Ethereal, ou a API do Albion ainda não está atualizada",
@@ -263,16 +258,17 @@ async def register(interaction: discord.Interaction, nick: str):
             await interaction.response.send_message(embed=embed, ephemeral=False)
             return
 
-        # Atribui o cargo de Membro e renomeia o usuário
         member = interaction.guild.get_member(interaction.user.id)
         if member:
-            print(f"[LOG] Usuário {interaction.user} encontrado no servidor.")
             role = interaction.guild.get_role(MEMBER_ROLE_ID)
             if role:
                 await member.add_roles(role)
                 await member.edit(nick=nick)
-                registered_nicks[interaction.user.id] = nick  # Salva o nick como registrado
-                print(f"[LOG] Cargo atribuído e nome alterado para {nick}.")
+                registered_nicks[interaction.user.id] = nick
+
+                with open("registrados.txt", "a", encoding="utf-8") as file:
+                    file.write(f"{interaction.user.name} ; {nick}\n")
+                
                 embed = discord.Embed(
                     title="Registro bem-sucedido!",
                     description=f"Registrado com sucesso! Bem-vindo, {nick}.",
@@ -280,7 +276,6 @@ async def register(interaction: discord.Interaction, nick: str):
                 )
                 await interaction.response.send_message(embed=embed, ephemeral=False)
             else:
-                print("[ERRO] Cargo de Membro não encontrado.")
                 embed = discord.Embed(
                     title="Erro no registro",
                     description="Cargo de Membro não encontrado.",
@@ -288,7 +283,6 @@ async def register(interaction: discord.Interaction, nick: str):
                 )
                 await interaction.response.send_message(embed=embed, ephemeral=True)
         else:
-            print("[ERRO] Usuário não encontrado no servidor.")
             embed = discord.Embed(
                 title="Erro no registro",
                 description="Erro ao encontrar seu usuário no servidor.",
@@ -296,47 +290,45 @@ async def register(interaction: discord.Interaction, nick: str):
             )
             await interaction.response.send_message(embed=embed, ephemeral=True)
     except Exception as e:
-        print(f"[ERRO] Erro no comando /register: {e}")
         embed = discord.Embed(
             title="Erro inesperado",
             description="Ocorreu um erro ao processar seu registro. Tente novamente mais tarde.",
             color=discord.Color.red()
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)
-
+        
 @bot.tree.command(name="unregister", description="Remove um membro do servidor.")
 @app_commands.describe(member="Membro a ser removido")
-@app_commands.checks.has_permissions(administrator=True)  # Apenas administradores podem executar!
+@app_commands.checks.has_permissions(administrator=True)
 async def unregister(interaction: discord.Interaction, member: discord.Member):
     print(f"[LOG] Comando /unregister acionado por {interaction.user} para remover {member.name}")
     
     try:
-        # Remove todas as roles do membro
         await member.edit(roles=[])
-        print(f"[LOG] Todas as tags removidas do membro {member.name}")
-        
-        # Expulsa o membro do servidor
         await member.kick(reason="Removido manualmente pelo comando /unregister")
-        print(f"[LOG] {member.name} foi expulso do servidor.")
+        registered_nicks.pop(member.id, None)
+
+        with open("registrados.txt", "r", encoding="utf-8") as file:
+            lines = file.readlines()
         
-        # Remove o nick da lista de registrados
-        if member.id in registered_nicks:
-            del registered_nicks[member.id]
+        with open("registrados.txt", "w", encoding="utf-8") as file:
+            for line in lines:
+                if not line.startswith(f"{member.name} ;"):
+                    file.write(line)
         
-        confirmation_embed = discord.Embed(
+        embed = discord.Embed(
             title="Membro removido",
             description=f"{member.name} foi removido do servidor e suas tags foram apagadas.",
             color=discord.Color.green()
         )
-        await interaction.response.send_message(embed=confirmation_embed, ephemeral=False)
+        await interaction.response.send_message(embed=embed, ephemeral=False)
     except Exception as e:
-        print(f"[ERRO] Erro ao remover {member.name}: {e}")
-        error_embed = discord.Embed(
+        embed = discord.Embed(
             title="Erro ao remover membro",
             description="Erro ao tentar remover o membro. Contate um administrador.",
             color=discord.Color.red()
         )
-        await interaction.response.send_message(embed=error_embed, ephemeral=True)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
 
 # Mensagem de erro se um usuário sem permissão tentar usar /unregister
 @unregister.error
